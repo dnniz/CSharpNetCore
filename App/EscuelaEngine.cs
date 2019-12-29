@@ -6,7 +6,7 @@ using ETAPA1.Entidades;
 
 namespace Etapa1.App
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public EscuelaEngine(Escuela escuela)
         {
@@ -97,6 +97,11 @@ namespace Etapa1.App
                                    Nota = ObtenerNotaAleatoria(0,5),
                                    Nombre = nombEvaluacion
                                };
+            foreach (var alumno in alumnos)
+            {
+                alumno.Evaluaciones = new List<Evaluacion>();
+                alumno.Evaluaciones = evaluaciones.Where(x => x.Alumno.UniqueId == alumno.UniqueId).ToList();
+            }
 
             return evaluaciones.ToList();
         }

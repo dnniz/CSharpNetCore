@@ -1,12 +1,11 @@
 using System.Collections.Generic;
+using CSharpNetCore.Entidades;
 using ETAPA1.Entidades;
 
 namespace Etapa1.Entidades
 {
-    public class Escuela
+    public class Escuela  : ObjetoEscuelaBase
     {
-        public string Nombre { get; set; }
-
         public int AñoCreación { get; set; }
 
         public TiposEscuela TipoEscuela { get; set; }

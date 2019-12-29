@@ -12,16 +12,22 @@ namespace Etapa1
         static void Main(string[] args)
         {
             Printer.PrintTitulo("Implementación de Lista Genérica y ejemplo de delegados con lambda");
-            
 
-           var escuelaEng = new EscuelaEngine();
-           escuelaEng.Inicializar();
-           
+            var escuelaEng = new EscuelaEngine();
+            escuelaEng.Inicializar();
+
+            ImprimirCursosEscuela(escuelaEng);
+
+            Printer.PrintTitulo("Pruebas de Polimorfismo");
+
+        }
+
+        private static void ImprimirCursosEscuela(EscuelaEngine escuelaEng)
+        {
             foreach (var item in escuelaEng.Escuela.lstCursos)
             {
                 WriteLine(item.ToString());
             }
-            
         }
     }
 }

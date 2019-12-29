@@ -1,12 +1,10 @@
-using System;
+using System.Collections.Generic;
+using CSharpNetCore.Entidades;
 
 namespace Etapa1.Entidades
 {
-    public class Alumno
+    public class Alumno : ObjetoEscuelaBase
     {
-        public string UniqueId { get; set; }
-        public string Nombre { get; set; }
-
-        public Alumno() => UniqueId = Guid.NewGuid().ToString(); 
+        public List<Evaluacion> Evaluaciones { get; set; }
     }
 }
