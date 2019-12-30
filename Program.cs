@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CSharpNetCore.Entidades;
 using Etapa1.App;
 using Etapa1.Entidades;
 using Etapa1.Util;
@@ -19,6 +20,8 @@ namespace Etapa1
             ImprimirCursosEscuela(escuelaEng);
 
             Printer.PrintTitulo("Pruebas de Polimorfismo");
+
+            var lstObjetos = escuelaEng.ListarObjetoBase();
 
         }
 

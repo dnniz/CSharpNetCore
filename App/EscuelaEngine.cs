@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpNetCore.Entidades;
 using Etapa1.Entidades;
 using ETAPA1.Entidades;
 
@@ -85,7 +86,7 @@ namespace Etapa1.App
 
         private List<Evaluacion> GenerarEvaluaciones(List<Alumno> alumnos, List<Asignatura> asignaturas)
         {
-            
+
             var nombresEvaluaciones = ObtenerNombresEvaluaciones();
             var evaluaciones = from alumno in alumnos
                                from asignatura in asignaturas
@@ -94,7 +95,7 @@ namespace Etapa1.App
                                {
                                    Alumno = alumno,
                                    Asignatura = asignatura,
-                                   Nota = ObtenerNotaAleatoria(0,5),
+                                   Nota = ObtenerNotaAleatoria(0, 5),
                                    Nombre = nombEvaluacion
                                };
             foreach (var alumno in alumnos)
@@ -108,20 +109,20 @@ namespace Etapa1.App
 
         private List<string> ObtenerNombresEvaluaciones()
         {
-            var nombres = new List<string>() 
+            var nombres = new List<string>()
             {
                 "evaluación final","microproyecto","evaluación final",
                 "criterios de la evaluación","evaluación durante toda la ejecución",
-                "evaluaciones del desarrollo","trabajo en equipo", "criterios cualitativos", 
+                "evaluaciones del desarrollo","trabajo en equipo", "criterios cualitativos",
                 "criterios cuantitativos", "participación"
             };
-            
+
             var rnd = new Random();
             var evaluaciones = new List<string>();
 
             for (int i = 1; i <= 5; i++)
             {
-                var indice = rnd.Next(0,nombres.Count -1);
+                var indice = rnd.Next(0, nombres.Count - 1);
                 var item = nombres.ElementAt(indice);
                 evaluaciones.Add(item);
                 nombres.RemoveAt(indice);
@@ -130,13 +131,13 @@ namespace Etapa1.App
             return evaluaciones;
         }
 
-        private double ObtenerNotaAleatoria(int minNota,int maxNota)
+        private double ObtenerNotaAleatoria(int minNota, int maxNota)
         {
             var rnd = new Random();
-            double nota = rnd.Next(minNota,maxNota);
+            double nota = rnd.Next(minNota, maxNota);
             if (nota != maxNota)
             {
-                nota += rnd.NextDouble(); 
+                nota += rnd.NextDouble();
                 if (nota > maxNota)
                 {
                     nota = maxNota;
@@ -144,6 +145,25 @@ namespace Etapa1.App
             }
             return nota;
         }
+
+        public List<ObjetoEscuelaBase> ListarObjetoBase()
+        {
+            var lstEscuelaBase = new List<ObjetoEscuelaBase>();
+
+            lstEscuelaBase.Add(Escuela);
+            lstEscuelaBase.AddRange(Escuela.lstCursos);
+
+            foreach (var curso in Escuela.lstCursos)
+            {
+                lstEscuelaBase.AddRange(curso.Alumnos);
+                lstEscuelaBase.AddRange(curso.Asignaturas);
+                lstEscuelaBase.AddRange(curso.Evaluaciones);
+            }
+
+            return lstEscuelaBase;    
+        }
+
         
     }
+
 }

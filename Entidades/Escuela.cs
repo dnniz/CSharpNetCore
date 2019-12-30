@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using CSharpNetCore.Entidades;
+using Etapa1.Util;
 using ETAPA1.Entidades;
 
 namespace Etapa1.Entidades
 {
-    public class Escuela  : ObjetoEscuelaBase
+    public class Escuela  : ObjetoEscuelaBase, ILugar
     {
         public int AñoCreación { get; set; }
 
@@ -12,6 +13,7 @@ namespace Etapa1.Entidades
         
         public int CantAlumnos { get; set; }
         public List<Curso> lstCursos { get; set; }
+        public string Direccion { get; set; }
 
         public Escuela(string nombre, int año) => (Nombre, AñoCreación) = (nombre, año);
 
@@ -25,5 +27,11 @@ namespace Etapa1.Entidades
             return $"Nombre: {Nombre} {System.Environment.NewLine}Año Creación: {AñoCreación} {System.Environment.NewLine}Tipo Escuela: {TipoEscuela} ";
         }
 
+        public void ActualizarReferencia()
+        {
+            Printer.PrintTitulo("Actualizando Referencia de la Escuela...");
+
+            Printer.PrintTitulo("::::Referencia de la Escuela Actualizada::::");
+        }
     }
 }
