@@ -1,4 +1,4 @@
-namespace Etapa1.Entidades
+namespace CSharpNetCore.Entidades
 {
     public enum TiposJornada
     {

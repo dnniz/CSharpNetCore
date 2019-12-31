@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using CSharpNetCore.Entidades;
-using Etapa1.App;
-using Etapa1.Entidades;
-using Etapa1.Util;
-using ETAPA1.Entidades;
+using CSharpNetCore.App;
+using CSharpNetCore.Util;
 using static System.Console;
+using System.Collections.Generic;
 
-namespace Etapa1
+namespace CSharpNetCore
 {
     class Program
     {
@@ -21,7 +20,15 @@ namespace Etapa1
 
             Printer.PrintTitulo("Pruebas de Polimorfismo");
 
-            var lstObjetos = escuelaEng.ListarObjetoBase();
+
+            var lstObjetos = escuelaEng.ListarObjetoBase(
+                out int cantCursos,
+                out int cantAlumnos,
+                out int cantAsignaturas,
+                out int cantEvaluaciones);
+
+            var listaIlugar = lstObjetos.Where(x => x is ILugar).ToList();
+
 
         }
 

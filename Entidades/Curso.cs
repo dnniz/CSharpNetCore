@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CSharpNetCore.Entidades;
-using Etapa1.Util;
+using CSharpNetCore.Util;
 
-namespace Etapa1.Entidades
+namespace CSharpNetCore.Entidades
 {
-    public class Curso  : ObjetoEscuelaBase, ILugar
+    public class Curso : ObjetoEscuelaBase, ILugar
     {
         public TiposJornada Jornada { get; set; }
         public List<Asignatura> Asignaturas { get; set; }

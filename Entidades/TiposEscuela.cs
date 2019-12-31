@@ -1,4 +1,4 @@
-namespace ETAPA1.Entidades
+namespace CSharpNetCore.Entidades
 {
     public enum TiposEscuela
     {

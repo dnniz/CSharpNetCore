@@ -1,10 +1,7 @@
-
-using CSharpNetCore.Entidades;
-
-namespace Etapa1.Entidades
+namespace CSharpNetCore.Entidades
 {
-    public class Asignatura  : ObjetoEscuelaBase
+    public class Asignatura : ObjetoEscuelaBase
     {
-        
+
     }
 }

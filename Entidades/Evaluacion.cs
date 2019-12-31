@@ -1,9 +1,6 @@
-using System;
-using CSharpNetCore.Entidades;
-
-namespace Etapa1.Entidades
+namespace CSharpNetCore.Entidades
 {
-    public class Evaluacion  : ObjetoEscuelaBase
+    public class Evaluacion : ObjetoEscuelaBase
     {
         public Alumno Alumno { get; set; }
         public Asignatura Asignatura { get; set; }

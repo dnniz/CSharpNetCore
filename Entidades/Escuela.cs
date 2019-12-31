@@ -1,23 +1,21 @@
 using System.Collections.Generic;
-using CSharpNetCore.Entidades;
-using Etapa1.Util;
-using ETAPA1.Entidades;
+using CSharpNetCore.Util;
 
-namespace Etapa1.Entidades
+namespace CSharpNetCore.Entidades
 {
-    public class Escuela  : ObjetoEscuelaBase, ILugar
+    public class Escuela : ObjetoEscuelaBase, ILugar
     {
         public int AñoCreación { get; set; }
 
         public TiposEscuela TipoEscuela { get; set; }
-        
+
         public int CantAlumnos { get; set; }
         public List<Curso> lstCursos { get; set; }
         public string Direccion { get; set; }
 
         public Escuela(string nombre, int año) => (Nombre, AñoCreación) = (nombre, año);
 
-        public Escuela(string nombre, int año, TiposEscuela tiposEscuela = TiposEscuela.PreEscolar, int cantAlumnos = 2000 )
+        public Escuela(string nombre, int año, TiposEscuela tiposEscuela = TiposEscuela.PreEscolar, int cantAlumnos = 2000)
         {
             (Nombre, AñoCreación, TipoEscuela, CantAlumnos) = (nombre, año, tiposEscuela, cantAlumnos);
         }

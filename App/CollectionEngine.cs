@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Etapa1.Util;
+using CSharpNetCore.Util;
 using static System.Console;
 
-namespace Etapa1.App
+namespace CSharpNetCore.App
 {
     public class CollectionEngine
     {
@@ -40,7 +40,7 @@ namespace Etapa1.App
             conjuntoA.Add("Lima");
             conjuntoA.Add("Surco");
             conjuntoA.Add("Villa");
-            
+
             var conjuntoB = new HashSet<string>();
             conjuntoB.Add("Villa");
             conjuntoB.Add("Rimac");
@@ -49,10 +49,10 @@ namespace Etapa1.App
             var interseccion = new HashSet<string>(conjuntoA);
             interseccion.IntersectWith(conjuntoB);
 
-            var exceptoB = new  HashSet<string>(conjuntoA);
+            var exceptoB = new HashSet<string>(conjuntoA);
             exceptoB.ExceptWith(conjuntoB);
 
-            var exceptoA = new  HashSet<string>(conjuntoB);
+            var exceptoA = new HashSet<string>(conjuntoB);
             exceptoA.ExceptWith(conjuntoA);
 
             var union = new HashSet<string>(conjuntoA);

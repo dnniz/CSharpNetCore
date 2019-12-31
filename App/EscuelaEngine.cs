@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpNetCore.Entidades;
-using Etapa1.Entidades;
-using ETAPA1.Entidades;
 
-namespace Etapa1.App
+namespace CSharpNetCore.App
 {
     public sealed class EscuelaEngine
     {
@@ -146,24 +144,76 @@ namespace Etapa1.App
             return nota;
         }
 
-        public List<ObjetoEscuelaBase> ListarObjetoBase()
+        public Dictionary<string, List<ObjetoEscuelaBase>> ObtenerDiccionarioEscuela()
+        {
+            var diccionario = new Dictionary<string, List<ObjetoEscuelaBase>>();
+
+            diccionario.Add("Escuela", new List<ObjetoEscuelaBase>() { Escuela });
+            diccionario.Add("Cursos", Escuela.lstCursos.Cast<ObjetoEscuelaBase>().ToList());
+            
+            return diccionario;
+        }
+        public List<ObjetoEscuelaBase> ListarObjetoBase(
+                    bool includeCurso = true,
+                    bool includeAsignatura = true,
+                    bool includeAlumnos = true,
+                    bool includeEvaluaciones = true
+                    )
+        {
+            int dummy = 0;
+            return ListarObjetoBase(out dummy, out dummy, out dummy, out dummy, includeCurso, includeAsignatura, includeAlumnos, includeEvaluaciones);
+        }
+        public List<ObjetoEscuelaBase> ListarObjetoBase(
+                    out int cantCursos,
+                    out int cantAlumnos,
+                    out int cantAsignaturas,
+                    out int cantEvaluaciones,
+                    bool includeCurso = true,
+                    bool includeAsignatura = true,
+                    bool includeAlumnos = true,
+                    bool includeEvaluaciones = true
+                    )
         {
             var lstEscuelaBase = new List<ObjetoEscuelaBase>();
+            cantCursos = cantAlumnos = cantAsignaturas = cantEvaluaciones = 0;
 
             lstEscuelaBase.Add(Escuela);
             lstEscuelaBase.AddRange(Escuela.lstCursos);
 
+            cantCursos = Escuela.lstCursos.Count;
+
             foreach (var curso in Escuela.lstCursos)
             {
+                cantAlumnos += curso.Alumnos.Count;
+                cantAsignaturas += curso.Asignaturas.Count;
+                cantEvaluaciones += curso.Evaluaciones.Count;
+
                 lstEscuelaBase.AddRange(curso.Alumnos);
                 lstEscuelaBase.AddRange(curso.Asignaturas);
                 lstEscuelaBase.AddRange(curso.Evaluaciones);
             }
 
-            return lstEscuelaBase;    
+            return lstEscuelaBase;
         }
 
-        
+        // public List<ObjetoEscuelaBase> ListarObjetoBase()
+        // {
+        //     var lstEscuelaBase = new List<ObjetoEscuelaBase>();
+
+        //     lstEscuelaBase.Add(Escuela);
+        //     lstEscuelaBase.AddRange(Escuela.lstCursos);
+
+        //     foreach (var curso in Escuela.lstCursos)
+        //     {
+        //         lstEscuelaBase.AddRange(curso.Alumnos);
+        //         lstEscuelaBase.AddRange(curso.Asignaturas);
+        //         lstEscuelaBase.AddRange(curso.Evaluaciones);
+        //     }
+
+        //     return lstEscuelaBase;    
+        // }
+
+
     }
 
 }
