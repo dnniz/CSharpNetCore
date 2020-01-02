@@ -3,7 +3,6 @@ using CSharpNetCore.Entidades;
 using CSharpNetCore.App;
 using CSharpNetCore.Util;
 using static System.Console;
-using System.Collections.Generic;
 
 namespace CSharpNetCore
 {
@@ -29,7 +28,10 @@ namespace CSharpNetCore
 
             var listaIlugar = lstObjetos.Where(x => x is ILugar).ToList();
 
-
+            var diccionario = escuelaEng.ObtenerDiccionarioEscuela();
+            
+            //escuelaEng.Escuela.lstCursos[0].PrintExclusive();
+            escuelaEng.ImprimirDiccionario(diccionario, LlaveDiccionario.Evaluacion);
         }
 
         private static void ImprimirCursosEscuela(EscuelaEngine escuelaEng)

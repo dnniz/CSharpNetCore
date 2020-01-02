@@ -1,3 +1,5 @@
+using System;
+
 namespace CSharpNetCore.Entidades
 {
     public class Evaluacion : ObjetoEscuelaBase
@@ -7,6 +9,11 @@ namespace CSharpNetCore.Entidades
         public double Nota { get; set; }
 
         public override string ToString()
+        {
+            return $"{Nota} {Alumno.Nombre} {Asignatura.Nombre}";
+        }
+
+        public override string PrintExclusive()
         {
             return $"{Nota} {Alumno.Nombre} {Asignatura.Nombre}";
         }

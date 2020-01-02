@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpNetCore.Entidades;
+using CSharpNetCore.Util;
+using static System.Console;
 
 namespace CSharpNetCore.App
 {
@@ -144,15 +146,6 @@ namespace CSharpNetCore.App
             return nota;
         }
 
-        public Dictionary<string, List<ObjetoEscuelaBase>> ObtenerDiccionarioEscuela()
-        {
-            var diccionario = new Dictionary<string, List<ObjetoEscuelaBase>>();
-
-            diccionario.Add("Escuela", new List<ObjetoEscuelaBase>() { Escuela });
-            diccionario.Add("Cursos", Escuela.lstCursos.Cast<ObjetoEscuelaBase>().ToList());
-            
-            return diccionario;
-        }
         public List<ObjetoEscuelaBase> ListarObjetoBase(
                     bool includeCurso = true,
                     bool includeAsignatura = true,
@@ -196,22 +189,44 @@ namespace CSharpNetCore.App
             return lstEscuelaBase;
         }
 
-        // public List<ObjetoEscuelaBase> ListarObjetoBase()
-        // {
-        //     var lstEscuelaBase = new List<ObjetoEscuelaBase>();
+        public Dictionary<LlaveDiccionario, List<ObjetoEscuelaBase>> ObtenerDiccionarioEscuela()
+        {
+            var diccionario = new Dictionary<LlaveDiccionario, List<ObjetoEscuelaBase>>();
 
-        //     lstEscuelaBase.Add(Escuela);
-        //     lstEscuelaBase.AddRange(Escuela.lstCursos);
+            diccionario.Add(LlaveDiccionario.Escuela, new List<ObjetoEscuelaBase>() { Escuela });
+            diccionario.Add(LlaveDiccionario.Curso, Escuela.lstCursos.Cast<ObjetoEscuelaBase>().ToList());
 
-        //     foreach (var curso in Escuela.lstCursos)
-        //     {
-        //         lstEscuelaBase.AddRange(curso.Alumnos);
-        //         lstEscuelaBase.AddRange(curso.Asignaturas);
-        //         lstEscuelaBase.AddRange(curso.Evaluaciones);
-        //     }
-
-        //     return lstEscuelaBase;    
-        // }
+            var lstAlum = new List<ObjetoEscuelaBase>(); 
+            var lstAsig = new List<ObjetoEscuelaBase>(); 
+            var lstEval = new List<ObjetoEscuelaBase>(); 
+            foreach (var curso in Escuela.lstCursos)
+            {
+                lstAlum.AddRange(curso.Alumnos);
+                lstAsig.AddRange(curso.Asignaturas);
+                lstEval.AddRange(curso.Evaluaciones);
+            }
+            diccionario.Add(LlaveDiccionario.Alumno, lstAlum);
+            diccionario.Add(LlaveDiccionario.Asignatura, lstAsig);
+            diccionario.Add(LlaveDiccionario.Evaluacion, lstEval);
+            
+            return diccionario;
+        }
+        
+        public void ImprimirDiccionario<T>(Dictionary<LlaveDiccionario, List<T>> diccionario, LlaveDiccionario llaveNoImprimir) where T : IPrintExclusive
+        {
+            foreach (var item in diccionario)
+            {
+                if (item.Key != llaveNoImprimir)
+                {
+                    Printer.PrintTitulo(item.Key.ToString());
+                    foreach (var value in item.Value)
+                    {
+                        WriteLine(value.PrintExclusive());
+                    }
+                }
+                
+            }
+        }
 
 
     }

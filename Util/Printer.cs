@@ -13,5 +13,6 @@ namespace CSharpNetCore.Util
         {
             WriteLine(string.Format("{0}{1}{0}", string.Empty.PadLeft(10, '='), titulo));
         }
+        
     }
 }

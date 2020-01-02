@@ -31,5 +31,10 @@ namespace CSharpNetCore.Entidades
 
             Printer.PrintTitulo("::::Referencia de la Escuela Actualizada::::");
         }
+
+        public override string PrintExclusive()
+        {
+            return $"Nombre: {Nombre}, Cantidad Cursos: {lstCursos.Count}";
+        }
     }
 }

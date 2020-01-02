@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CSharpNetCore.Util;
 
 namespace CSharpNetCore.Entidades
@@ -25,6 +26,15 @@ namespace CSharpNetCore.Entidades
         }
 
         public Curso() => (Direccion) = $"[CURSO EN LINEA]";
+
+        public override string PrintExclusive()
+        {
+            var groupByAlumno = Evaluaciones.GroupBy(x => x.Alumno);
+            var lstNotasPorAlumno = groupByAlumno.Select(group => new Evaluacion { Alumno = group.Key, Nota = (group.Sum(x => x.Nota)/group.Count()) });
+            var mejorAlumno = lstNotasPorAlumno.OrderByDescending( x => x.Nota).FirstOrDefault();
+
+            return $"Nombre: {Nombre}, Mejor Alumno del curso: {mejorAlumno.Alumno.Nombre} con la Nota Promedio de: {Math.Round( mejorAlumno.Nota, 2)}";
+        }
 
     }
 }

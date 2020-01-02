@@ -2,7 +2,7 @@ using System;
 
 namespace CSharpNetCore.Entidades
 {
-    public class ObjetoEscuelaBase
+    public abstract class ObjetoEscuelaBase : IPrintExclusive
     {
         public string UniqueId { get; set; }
         public string Nombre { get; set; }
@@ -12,6 +12,8 @@ namespace CSharpNetCore.Entidades
         {
             return $"{Nombre}";
         }
+
+        public  abstract string PrintExclusive();
     }
     
 }
