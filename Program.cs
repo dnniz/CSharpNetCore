@@ -30,8 +30,11 @@ namespace CSharpNetCore
 
             var diccionario = escuelaEng.ObtenerDiccionarioEscuela();
             
-            //escuelaEng.Escuela.lstCursos[0].PrintExclusive();
             escuelaEng.ImprimirDiccionario(diccionario, LlaveDiccionario.Evaluacion);
+
+            var reporte = new Reporte(diccionario);
+            //var reporteEscuela = reporte.ListarEscuela();
+            reporte.EvaluacionesPorAsignatura();
         }
 
         private static void ImprimirCursosEscuela(EscuelaEngine escuelaEng)
