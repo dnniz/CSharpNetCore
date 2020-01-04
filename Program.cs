@@ -33,8 +33,9 @@ namespace CSharpNetCore
             escuelaEng.ImprimirDiccionario(diccionario, LlaveDiccionario.Evaluacion);
 
             var reporte = new Reporte(diccionario);
-            //var reporteEscuela = reporte.ListarEscuela();
-            reporte.EvaluacionesPorAsignatura();
+            var dicEvalByAsignatura = reporte.EvaluacionesPorAsignatura();
+            var dicAsigPromedioByAlum = reporte.AsignaturaPromedioPorAlumno();
+            var topAlumnosByAsignatura = reporte.PromediosPorAsignatura(3);
         }
 
         private static void ImprimirCursosEscuela(EscuelaEngine escuelaEng)

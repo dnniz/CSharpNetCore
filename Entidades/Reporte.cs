@@ -29,12 +29,67 @@ namespace CSharpNetCore.Entidades
                                 .ToList()
                                 : null;
         }
+        public List<Evaluacion> ListaEvaluacionesByAsignatura(string asignatura)
+        {
+            return _diccionario.TryGetValue(LlaveDiccionario.Evaluacion, out var lstEvaluacion )?
+                    lstEvaluacion.Cast<Evaluacion>()
+                    .Where(x => x.Asignatura.Nombre == asignatura)
+                    .ToList()
+                    : null;
+        }
         public Dictionary<Asignatura, List<Evaluacion>> EvaluacionesPorAsignatura()
         {
             var asignaturas = ListaAsignaturas();
-            //var result = _diccionario.Where(x => x.)
+            var diccionario = new Dictionary<Asignatura, List<Evaluacion>>();
 
-            return null;
+            if(asignaturas != null)
+                foreach (var asignatura in asignaturas)
+                {
+                    diccionario.Add(asignatura, ListaEvaluacionesByAsignatura(asignatura.Nombre));
+                }
+
+            return diccionario;
         }
+
+        private List<Evaluacion> PromedioEvaluacionPorAsignatura(string asignatura)
+        {
+            return ListaEvaluacionesByAsignatura(asignatura)
+                                            .GroupBy(x => x.Alumno.UniqueId)
+                                            .Select(x => new Evaluacion
+                                            {
+                                                Alumno = x.FirstOrDefault().Alumno,
+                                                Promedio = x.Average(x => x.Nota)
+                                            })
+                                            .ToList();
+        }
+        public Dictionary<Asignatura, List<Evaluacion>> AsignaturaPromedioPorAlumno(string nombreAsig = null)
+        {
+            var asignaturas = ListaAsignaturas();
+            var diccionario = new Dictionary<Asignatura, List<Evaluacion>>();
+
+            if(nombreAsig != null)
+            {
+                diccionario.Add(asignaturas.Where(x => x.Nombre == nombreAsig).FirstOrDefault(), PromedioEvaluacionPorAsignatura(nombreAsig));
+                return diccionario;
+            }
+            if(asignaturas != null)
+                foreach (var asignatura in asignaturas)
+                {
+                    List<Evaluacion> promedioPorAlumno = PromedioEvaluacionPorAsignatura(asignatura.Nombre);
+                    diccionario.Add(asignatura, promedioPorAlumno);
+                }
+
+            return diccionario;
+        }
+        
+        public Dictionary<Asignatura, List<Evaluacion>> PromediosPorAsignatura( int top, string asignatura = null)
+        {
+            return AsignaturaPromedioPorAlumno(asignatura)
+                       .Where(x => asignatura == null || x.Key.Nombre == asignatura )
+                       .ToDictionary(x => x.Key, x => x.Value.OrderByDescending(x => x.Promedio).Take(top).ToList() );
+            
+        }
+
+        
     }
 }
