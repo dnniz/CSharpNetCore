@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using CSharpNetCore.Util;
 
@@ -7,10 +8,15 @@ namespace CSharpNetCore.Entidades
 {
     public class Curso : ObjetoEscuelaBase, ILugar
     {
+        public string CursoId { get; set; }
         public TiposJornada Jornada { get; set; }
-        public List<Asignatura> Asignaturas { get; set; }
-        public List<Alumno> Alumnos { get; set; }
-        public List<Evaluacion> Evaluaciones { get; set; }
+        public virtual List<Asignatura> Asignaturas { get; set; }
+        public virtual List<Alumno> Alumnos { get; set; }
+        [NotMapped]
+        public virtual List<Evaluacion> Evaluaciones { get; set; }
+        public string EscuelaId { get; set; }
+        [ForeignKey("EscuelaId")]
+        public Escuela Escuela { get; set; }
         public string Direccion { get; set; }
 
         public override string ToString()
@@ -25,7 +31,7 @@ namespace CSharpNetCore.Entidades
             Printer.PrintTitulo("::::Referencia Del Curso Actualizada::::");
         }
 
-        public Curso() => (Direccion) = $"[CURSO EN LINEA]";
+        public Curso() => (Direccion, CursoId) = ($"[CURSO EN LINEA]", UniqueId);
 
         public override string PrintExclusive()
         {
