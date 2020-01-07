@@ -20,6 +20,8 @@ namespace CSharpNetCore.Entidades
             (Nombre, AñoCreación, TipoEscuela, CantAlumnos, EscuelaId) = (nombre, año, tiposEscuela, cantAlumnos, UniqueId);
         }
 
+        public Escuela() => EscuelaId = UniqueId;
+        
         public override string ToString()
         {
             return $"Nombre: {Nombre} {System.Environment.NewLine}Año Creación: {AñoCreación} {System.Environment.NewLine}Tipo Escuela: {TipoEscuela} ";

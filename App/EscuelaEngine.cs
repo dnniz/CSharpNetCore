@@ -26,7 +26,7 @@ namespace CSharpNetCore.App
             LoadCursos();
         }
 
-        private List<Alumno> GenerarAlumnos(int cantidadAlumnos)
+        private List<Alumno> GenerarAlumnos(int cantidadAlumnos, Curso curso)
         {
             string[] primerNombre = { "Dennis", "Paul", "Franklin", "Juan", "Carlos", "Joaquin" };
             string[] segundoNombre = { "Hanna", "Kuro", "Haru", "Katou", "Genji", "Haki" };
@@ -35,18 +35,18 @@ namespace CSharpNetCore.App
             var listAlumnos = from pNombre in primerNombre
                               from sNombre in segundoNombre
                               from pApellido in primerApellido
-                              select new Alumno { Nombre = $"{pNombre} {sNombre} {pApellido}" };
+                              select new Alumno { Nombre = $"{pNombre} {sNombre} {pApellido}", CursoId = curso.CursoId };
 
             return listAlumnos.OrderBy(x => x.UniqueId).Take(cantidadAlumnos).ToList();
         }
 
-        private List<Asignatura> GenerarAsignaturas()
+        private List<Asignatura> GenerarAsignaturas(Curso curso)
         {
             var lstAsignaturas = new List<Asignatura>()
                 {
-                new Asignatura(){Nombre ="FUNDAMENTOS FISICOS" },
-                new Asignatura(){Nombre ="LOGICA" },
-                new Asignatura(){Nombre ="CALCULO" }
+                new Asignatura(){Nombre ="FUNDAMENTOS FISICOS", CursoId = curso.CursoId },
+                new Asignatura(){Nombre ="LOGICA" , CursoId = curso.CursoId },
+                new Asignatura(){Nombre ="CALCULO" , CursoId = curso.CursoId }
             };
 
             return lstAsignaturas;
@@ -56,11 +56,13 @@ namespace CSharpNetCore.App
         {
             var curso1 = new Curso()
             {
-                Nombre = "BIO"
+                Nombre = "BIO",
+                EscuelaId = Escuela.UniqueId
             };
             var curso2 = new Curso()
             {
-                Nombre = "BOT"
+                Nombre = "BOT",
+                EscuelaId = Escuela.UniqueId
             };
             Escuela.lstCursos = new List<Curso>();
             Escuela.lstCursos.Add(curso1);
@@ -74,11 +76,11 @@ namespace CSharpNetCore.App
 
                 //Carga de Alumnos
                 curso.Alumnos = new List<Alumno>();
-                curso.Alumnos = GenerarAlumnos(cantidadAlumnos);
+                curso.Alumnos = GenerarAlumnos(cantidadAlumnos, curso);
 
                 //Carga de Asignaturas
                 curso.Asignaturas = new List<Asignatura>();
-                curso.Asignaturas = GenerarAsignaturas();
+                curso.Asignaturas = GenerarAsignaturas(curso);
 
                 curso.Evaluaciones = GenerarEvaluaciones(curso.Alumnos, curso.Asignaturas);
             }
@@ -94,7 +96,9 @@ namespace CSharpNetCore.App
                                select new Evaluacion()
                                {
                                    Alumno = alumno,
+                                   AlumnoId = alumno.AlumnoId,
                                    Asignatura = asignatura,
+                                   AsignaturaId = asignatura.AsignaturaId,
                                    Nota = ObtenerNotaAleatoria(0, 5),
                                    Nombre = nombEvaluacion
                                };
