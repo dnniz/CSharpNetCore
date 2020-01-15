@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using CSharpNetCore.Util;
 
 namespace CSharpNetCore.Entidades
 {
+    [Table("Cursos")]
     public class Curso : ObjetoEscuelaBase, ILugar
     {
+        [Key]
         public string CursoId { get; set; }
         public TiposJornada Jornada { get; set; }
         public virtual List<Asignatura> Asignaturas { get; set; }

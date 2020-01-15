@@ -5,7 +5,7 @@ namespace CSharpNetCore.Entidades
     public abstract class ObjetoEscuelaBase : IPrintExclusive
     {
         public string UniqueId { get; set; }
-        public string Nombre { get; set; }
+        public virtual string Nombre { get; set; }
         public ObjetoEscuelaBase() => UniqueId = Guid.NewGuid().ToString();
 
         public override string ToString()
@@ -13,7 +13,7 @@ namespace CSharpNetCore.Entidades
             return $"{Nombre}";
         }
 
-        public  abstract string PrintExclusive();
+        public abstract string PrintExclusive();
     }
-    
+
 }

@@ -1,10 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CSharpNetCore.Entidades
 {
+    [Table("Evaluaciones")]
     public class Evaluacion : ObjetoEscuelaBase
     {
+        [Key]
         public string EvaluacionId { get; set; }
         public string AlumnoId { get; set; }
         [ForeignKey("AlumnoId")]

@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CSharpNetCore.Util;
 
 namespace CSharpNetCore.Entidades
 {
+    [Table("Escuelas")]
     public class Escuela : ObjetoEscuelaBase, ILugar
     {
+        [Key]
         public string EscuelaId { get; set; }
         public int AñoCreación { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
